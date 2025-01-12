@@ -1,0 +1,179 @@
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('/kalsang.jpg') no-repeat center center;
+    background-size: cover; /* Ensure the image covers the screen */
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Adding a dark overlay on the background image */
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Slightly darker overlay for better focus */
+    z-index: -1;
+}
+
+/* Login Form */
+.login-form {
+    background: rgba(255, 255, 255, 0.95); /* Slight transparency for a modern look */
+    padding: 40px 50px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Form Heading */
+.login-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Labels */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Input Fields */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+/* Input Focus State */
+.form-group input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Login Button */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease-in-out;
+    margin-top: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Hover State for Button */
+.btn-login:hover {
+    background: linear-gradient(135deg, #388E3C, #1B5E20);
+    transform: scale(1.05);
+}
+
+/* Active State for Button */
+.btn-login:active {
+    transform: scale(0.98);
+}
+
+/* Form Footer (Optional) */
+.form-footer {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.form-footer a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-form {
+        padding: 30px;
+        max-width: 350px;
+    }
+
+    .login-form h2 {
+        font-size: 1.7rem;
+    }
+
+    .form-group input {
+        font-size: 0.95rem;
+    }
+
+    .btn-login {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 10px;
+    }
+
+    .login-form {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .login-form h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-group input {
+        font-size: 0.9rem;
+    }
+
+    .btn-login {
+        font-size: 0.9rem;
+    }
+
+    .form-footer {
+        font-size: 0.8rem;
+    }
+}
+
+/* Mobile landscape adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+    .login-container {
+        min-height: 120vh; /* Ensures form stays in view on landscape mode */
+    }
+}
