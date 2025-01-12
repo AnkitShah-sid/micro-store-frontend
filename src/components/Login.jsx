@@ -67,33 +67,43 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        <h2>Login</h2>
-        <div className="form-group">
-          <label>Email:</label>
+    <div className="login-box">
+      <form onSubmit={handleSubmit}>
+      <h2 className="login-heading">Login</h2> {/* Added class to h2 */}
+      <div className="input-box">
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
             required
           />
+          <label>Email</label>
+          <span className="icon">📧</span>
         </div>
-        <div className="form-group">
-          <label>Password:</label>
+        <div className="input-box">
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
             required
           />
+          <label>Password</label>
+          <span className="icon">🔒</span>
         </div>
-        <button type="submit" className="btn-login">Login</button>
+        <div className="remember-forgot">
+          <label className="remember-me">
+            <input type="checkbox" /> Remember Me
+          </label>
+        </div>
+        <button type="submit" className="same-color">Login</button>
+        <div className="link">
+          {/* <p>
+            Don't have an account? <a href="/register">Register</a>
+          </p> */}
+        </div>
       </form>
     </div>
   );
-};
+  };
 
 export default Login;
