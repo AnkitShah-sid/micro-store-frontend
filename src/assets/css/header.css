@@ -4,8 +4,8 @@ header {
   left: 0;
   width: 100%; /* Full width */
   height: 60px; /* Adjustable height */
-  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Optional border */
+  background-color: rgba(8, 8, 8, 0.8); /* Semi-transparent background */
+  border-bottom: 1px solid rgba(9, 9, 9, 0.2); /* Optional border */
   z-index: 1000; /* Ensures it sits above other elements */
   display: flex;
   align-items: center;

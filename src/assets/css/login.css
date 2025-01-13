@@ -10,7 +10,9 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url('../kalsangMain.svg'); /* Adjust the path */
+  /* background-image: url('../kalsangMaing'); Adjust the path */
+  background-color: rgb(232, 223, 223); /* Set the background color to gray */
+  background-size: cover;
   background-size: cover;
   background-repeat: no-repeat;
   font-family: sans-serif;
@@ -21,7 +23,7 @@ body {
   position: relative;
   width: 400px;
   height: 400px; /* Set the height same as width */
-  border: 1px solid #fff;
+  border: 1px solid #1b1919;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -31,7 +33,7 @@ body {
   animation: fadeIn 0.8s ease;
 }
 .login-heading {
-    color: #fdf8f8; /* Your desired color for the Login text */
+    color: #fffdfd; /* Your desired color for the Login text */
     font-size: 2rem;
     text-align: center;
   }
@@ -47,7 +49,7 @@ h2 {
   position: relative;
   width: 310px;
   margin: 20px 0;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #f6f2f2;
 }
 
 .input-box label {
@@ -55,7 +57,7 @@ h2 {
   top: 50%;
   left: 5px;
   transform: translateY(-50%);
-  color: #fff;
+  color: #fbf9f9;
   font-size: 16px;
   transition: all 0.5s ease;
 }
@@ -64,7 +66,7 @@ h2 {
 .input-box input:valid~label {
   top: -5px;
   font-size: 14px;
-  color: #db7a77; /* Highlight color */
+  color: #77db90; /* Highlight color */
 }
 
 .input-box input {

@@ -1,54 +1,35 @@
-/* Ensure the page fills the viewport */
-html, body {
+/* General Reset */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Global Background */
+/* App.css */
+
+body {
+  background-color: #4d4a4a !important; /* Red background */
+  color: #000;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
 }
 
-/* Main content should take up remaining space */
-body {
-  display: flex;
-  flex-direction: column;
-}
 
-/* Content wrapper to push the footer down */
-.main-content {
-  flex: 1;
-}
-
-/* Footer stays fixed at the bottom */
-.footer {
-  background-color: #1e3a8a; /* Blue background */
-  color: #ffffff; /* White text */
-  text-align: center;
-  padding: 20px 20px; /* Reduced padding */
-  font-size: 10px;
-  position: fixed; /* Fixed at the bottom */
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-.footer a {
-  color: #90caf9; /* Light blue links */
-  text-decoration: none;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-  color: #ffffff; /* White on hover */
-}
-
-.footer p {
-  margin: 0; /* Reduced margin between paragraphs */
-}
-
-/* Centering content if needed */
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0px; /* Adds small spacing between lines */
+/* Ensure Forms or Content Have Distinct Background */
+.content-box {
+  background-color: #110909; /* Dark background for content areas */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%; /* Make content box responsive */
+  max-width: 500px; /* Limit width for readability */
+  color: #fff; /* Ensure text inside content box is visible */
 }

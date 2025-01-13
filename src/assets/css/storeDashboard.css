@@ -1,0 +1,184 @@
+/* General Layout */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F1F5FF;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+/* Section Tabs (Full-Screen Layout) */
+.section-tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: #e7dfdf; /* Light background color */
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem 0;
+    width: 100%;
+    position: fixed;
+    top: 60px; /* Position below the header */
+    left: 0;
+    right: 0;
+    z-index: 10;
+    min-width: 320px;
+    margin-top: 10px;
+}
+
+/* Section Tab */
+.section-tab {
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.section-tab:hover {
+    background-color: #6d6a6a;
+    color: white;
+    border-radius: 15px;
+}
+
+.section-tab.active {
+    background-color: #706868;
+    color: #fff;
+    border-radius: 20px;
+}
+
+/* Full-Page Content */
+.main-content {
+    display: flex;
+    flex-direction: row; /* Horizontal layout on larger screens */
+    min-height: calc(100vh - 120px);
+    padding-top: 80px; /* Space below section-tabs */
+    justify-content: flex-start;
+    overflow: hidden;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Container for Items, Vendors, and Butchery */
+.container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    width: 100%;
+    padding: 1rem;
+}
+
+/* Vendor Style */
+.vendor-container,
+.butchery-container {
+    flex: 1;
+    min-width: 320px;
+    padding: 1rem;
+    background-color: #ece5e5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Item List Style */
+.item-list-container {
+    flex: 1;
+    padding: 1rem;
+    background-color: #ec0505;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    min-width: 320px;
+    position: relative;
+    overflow-y: scroll; /* Allow scrolling */
+    max-height: 100%;
+    margin-top: 60px; /* Adjust this to create space below the section tabs */
+}
+
+/* Item Details Style */
+.item-details-container {
+    flex: 1; /* Takes up the remaining space (75%) */
+    padding: 1rem;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-top: 20px;
+    display: none; /* Initially hidden */
+}
+
+/* Active Item Details Container (when clicked) */
+.item-details-container.active {
+    display: block;
+}
+
+/* Item Style */
+.item {
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
+
+.item:hover {
+    background-color: #e7dfdf;
+    transform: translateY(-5px);
+}
+
+/* No Items Message */
+.no-items {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #999;
+}
+
+/* Responsive Design for Phones */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column; /* Stack items vertically on small screens */
+    }
+
+    .item-list-container {
+        flex: 0 0 100%; /* Take full width on small screens */
+        margin-top: 10px;
+    }
+
+    .item-details-container {
+        flex: 1;
+        margin-top: 20px; /* Space between item list and item details */
+    }
+
+    /* Hide item details by default */
+    .item-details-container {
+        display: none;
+    }
+
+    .item-details-container.active {
+        display: block;
+    }
+
+    .container {
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+
+    .section-tab {
+        padding: 0.5rem;
+    }
+
+    .item-list-container,
+    .vendor-container,
+    .butchery-container {
+        min-width: 100%;
+    }
+    
+    /* Adjust font size for smaller screens */
+    body {
+        font-size: 14px;
+    }
+
+    .item {
+        padding: 0.75rem;
+    }
+}

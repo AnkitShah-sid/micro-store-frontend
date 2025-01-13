@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Headere from './components/Headere';
 import Footer from './components/Footer';
 import Login from './components/Login';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "./App.css";
 
 // Admin Components
 import AdminDashboard from './components/AdminDashboard';
@@ -17,27 +20,30 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
+        {/* Header: Always displayed */}
         <Headere />
+        
+
+        {/* Main App Routes */}
         <Routes>
-          {/* Root Route */}
-          {/* http://localhost:3000 */}
-          <Route path='/' element={<Login />} />
+          {/* 🔑 Authentication Route */}
+          {/* Example: http://localhost:3000 */}
+          <Route path="/" element={<Login />} />
 
           {/* 🛠️ Admin Routes */}
-          {/* http://localhost:3000/admin */}
-          <Route path='/admin' element={<AdminDashboard />} />
-          
+          {/* Example: http://localhost:3000/admin */}
+          <Route path="/admin" element={<AdminDashboard />} />
+
           {/* 🏬 Store Routes */}
-          {/* http://localhost:3000/store */}
-          <Route path='/store' element={<StoreDashboard />} />
-          
+          {/* Example: http://localhost:3000/store */}
+          <Route path="/store" element={<StoreDashboard />} />
 
           {/* 🍳 Kitchen Routes */}
-          {/* http://localhost:3000/kitchen */}
-          <Route path='/kitchen' element={<KitchenDashboard />} />
-          {/* http://localhost:3000/kitchen/add */}
-         
+          {/* Example: http://localhost:3000/kitchen */}
+          <Route path="/kitchen" element={<KitchenDashboard />} />
         </Routes>
+
+        {/* Footer: Always displayed */}
         <Footer />
       </BrowserRouter>
     </>

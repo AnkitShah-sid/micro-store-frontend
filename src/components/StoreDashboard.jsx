@@ -1,47 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../assets/css/storeDashboard.css";
 
-const AddVendor = () => {
-  const [userRfId, setUserRfId] = useState('');
-  const [vendor, setVendor] = useState({
-    name: '',
-    vendorContactNumber: '',
-    vendorEmail: '',
-    location: '',
-  });
+const StoreDashboard = () => {
+  const [userRfId, setUserRfId] = useState("");
+  const [userItems, setUserItems] = useState([]);
+  const [userVendors, setUserVendors] = useState([]);
+  const [userButchery, setUserButchery] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState("Item");
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  // Fetch the logged-in user's ID
   useEffect(() => {
     const fetchUserRfId = async () => {
       setLoading(true);
-
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem("authToken");
       if (!token) {
-        alert('No authentication token found. Please log in.');
-        window.location.href = '/login';
+        alert("No authentication token found. Please log in.");
+        window.location.href = "/login";
         return;
       }
 
       try {
-        const response = await axios.get('http://192.168.124.69:8080/userid', {
+        const response = await axios.get("http://192.168.124.69:8080/userid", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        setUserRfId(response.data || ''); // Set userRfId from response
+        setUserRfId(response.data || "");
       } catch (error) {
-        console.error('Error fetching userRfId:', error);
-
-        if (error.response && error.response.status === 401) {
-          alert('Session expired. Please log in again.');
-          localStorage.removeItem('authToken');
-          window.location.href = '/login';
-        } else {
-          alert('Failed to fetch user ID. Please try again.');
-        }
+        console.error("Error fetching userRfId:", error);
+        setError("Failed to fetch user ID. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -50,127 +40,135 @@ const AddVendor = () => {
     fetchUserRfId();
   }, []);
 
-   // Handle form field changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setVendor((prevVendor) => ({ ...prevVendor, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    // Validation checks
-    if (!userRfId) {
-      alert('User ID is required!');
-      return;
-    }
-  
-    const { name, vendorContactNumber, vendorEmail, location } = vendor;
-    if (!name || !vendorContactNumber || !vendorEmail || !location) {
-      alert('Please fill in all fields.');
-      return;
-    }
-  
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      alert('No authentication token found. Please log in.');
-      return;
-    }
-  
-    try {
-      setSaving(true);
-  
-      // Correctly substitute userRfId into the URL
-      const url = `http://localhost:8080/${userRfId}/add`; // Ensure userRfId is substituted correctly
-  
-      // Combine vendor data
-      const payload = { ...vendor };
-      
-      // Send the POST request to the backend with the dynamic URL
-      const response = await axios.post(url, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      alert('Vendor saved successfully!');
-      console.log('Saved Vendor Response:', response.data);
-  
-      // Clear the form
-      setVendor({
-        name: '',
-        vendorContactNumber: '',
-        vendorEmail: '',
-        location: '',
-      });
-    } catch (error) {
-      console.error('Error saving vendor:', error);
-  
-      if (error.response) {
-        console.error('Error Response:', error.response.data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (userRfId) {
+          const itemsResponse = await axios.get(`http://localhost:8080/item/${userRfId}`);
+          console.log("Items Response:", itemsResponse.data);  // Check this log
+          setUserItems(itemsResponse.data);
+          const vendorsResponse = await axios.get(`http://localhost:8080/vendor/${userRfId}`);
+          setUserVendors(vendorsResponse.data);
+          const butcheryResponse = await axios.get(`http://localhost:8080/butchery/${userRfId}`);
+          setUserButchery(butcheryResponse.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError("Failed to fetch data. Please try again.");
       }
+    };
   
-      alert('Failed to save vendor.');
-    } finally {
-      setSaving(false);
-    }
+    fetchData();
+  }, [userRfId]);
+  
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+    setSelectedItem(null); // Reset item details when switching tabs
   };
-  
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+  };
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "Item":
+        return (
+          <div className="item-list-container">
+            {userItems && userItems.length > 0 ? (
+              userItems.map((item) => (
+                <div key={item.id} className="item" onClick={() => handleItemClick(item)}>
+                  <h5>{item.itemName}</h5>
+                  <p>Quantity: {item.totalQuantity}</p>
+                </div>
+              ))
+            ) : (
+              <div className="no-items">No items available</div>
+            )}
+          </div>
+        );
+      case "Vendor":
+        return (
+          <div className="item-list-container">
+            {userVendors.length > 0 ? (
+              userVendors.map((vendor) => (
+                <div key={vendor.id} className="item">
+                  <h5>{vendor.vendorName}</h5>
+                  <p>Location: {vendor.vendorLocation}</p>
+                </div>
+              ))
+            ) : (
+              <div className="no-items">No vendors available</div>
+            )}
+          </div>
+        );
+      case "Butchery":
+        return (
+          <div className="item-list-container">
+            {userButchery.length > 0 ? (
+              userButchery.map((butcher) => (
+                <div key={butcher.id} className="item">
+                  <h5>{butcher.itemName}</h5>
+                  <p>Quantity: {butcher.totalQuantity}</p>
+                </div>
+              ))
+            ) : (
+              <div className="no-items">No butchery items available</div>
+            )}
+          </div>
+        );
+      default:
+        return null;
+    }
+};
+
+
   return (
-    <div>
-      <h2>Add Vendor</h2>
+    <main className="container">
+      <div className="section-tabs">
+        <div
+          className={`section-tab ${activeTab === "Item" ? "active" : ""}`}
+          onClick={() => handleTabClick("Item")}
+        >
+          Items
+        </div>
+        <div
+          className={`section-tab ${activeTab === "Vendor" ? "active" : ""}`}
+          onClick={() => handleTabClick("Vendor")}
+        >
+          Vendors
+        </div>
+        <div
+          className={`section-tab ${activeTab === "Butchery" ? "active" : ""}`}
+          onClick={() => handleTabClick("Butchery")}
+        >
+          Butchery
+        </div>
+      </div>
 
-      {/* Display user ID or loading state */}
-      {loading ? (
-        <p>Loading user ID...</p>
-      ) : userRfId ? (
-        <p>
-          <strong>Logged-in User ID:</strong> {userRfId}
-        </p>
-      ) : (
-        <p>User ID not found.</p>
-      )}
-
-      {/* Vendor form */}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={vendor.name}
-          onChange={handleChange}
-          placeholder="Vendor Name"
-          required
-        />
-        <input
-          type="text"
-          name="vendorContactNumber"
-          value={vendor.vendorContactNumber}
-          onChange={handleChange}
-          placeholder="Contact Number"
-          required
-        />
-        <input
-          type="email"
-          name="vendorEmail"
-          value={vendor.vendorEmail}
-          onChange={handleChange}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="text"
-          name="location"
-          value={vendor.location}
-          onChange={handleChange}
-          placeholder="Location"
-          required
-        />
-        <button type="submit" disabled={saving}>
-          {saving ? 'Saving...' : 'Save Vendor'}
-        </button>
-      </form>
-    </div>
+      <div className="main-content">
+        <div className="container">
+          <div className="content-left">{renderContent()}</div>
+          <div className="content-right">
+            <div
+              className={`item-details-container ${selectedItem ? "active" : ""}`}
+            >
+              {selectedItem ? (
+                <>
+                  <h5>{selectedItem.itemName}</h5>
+                  <p>Quantity: {selectedItem.totalQuantity}</p>
+                  <p>Unit Type: {selectedItem.unitType}</p>
+                </>
+              ) : (
+                <p>Select an item to view details</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
-export default AddVendor;
+export default StoreDashboard;
